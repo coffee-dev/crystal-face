@@ -1,4 +1,3 @@
-/*
 var DEFAULT_PARAMS = {
 	:side => :left,
 	:shape => :arc,
@@ -11,7 +10,7 @@ var DEFAULT_PARAMS = {
 
 function testGetSegmentScale(max, expectedResult, logger) {
 	var goalMeter = new GoalMeter(DEFAULT_PARAMS);
-	goalMeter.setValues(0, max);
+	goalMeter.setValues(0, max, 1, 1);
 	var scale = goalMeter.getSegmentScale();
 	logger.debug("scale is " + scale + ", expected " + expectedResult);
 	return (scale == expectedResult);
@@ -47,7 +46,7 @@ function testGetSegments(current, max, expectedFillHeights, expectedHeights, log
 	var pass = true;
 
 	var goalMeter = new GoalMeter(DEFAULT_PARAMS);
-	goalMeter.setValues(current, max);
+	goalMeter.setValues(current, max, 1, 1);
 
 	var segments = goalMeter.getSegments();
 	logger.debug(segments.size() + " segments returned, expected " + expectedFillHeights.size());
@@ -99,4 +98,3 @@ function getSegmentsShouldHandle2SegmentsWithMinPartial(logger) {
 function getSegmentsShouldHandle6OutOf10(logger) {
 	return testGetSegments(6, 10, [14, 14, 15, 14, 14, 14, 0, 0, 0, 0], [14, 14, 15, 14, 14, 14, 14, 15, 14, 14], logger);
 }
-*/

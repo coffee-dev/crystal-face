@@ -2,18 +2,14 @@
 A Garmin Connect IQ watch face.
 
 ## Description
-**If you enjoy using Crystal, you can support my work with a small donation:**
-https://goo.gl/vFCE4T
-
 **FAQs, including how to change watch face settings:**
 https://github.com/warmsound/crystal-face/wiki/FAQ
 
 A crystal clear watch face, with LCD-like goal meter segments, written while snow crystals were falling during an unusually cold spell of weather here in England.
 
 Features (depending on watch support):
-- Big time digits right in the middle, with hours in bold. Leading zero and seconds can be hidden. Hours and minutes colours can be set independently.
-- Up to 3 customisable data fields: HR (historical/live), battery, notifications, calories, distance, alarms, altitude, thermometer, sunrise/sunset, weather (OpenWeatherMap).
-- Up to 3 customisable indicators: Bluetooth, alarms, notifications, Bluetooth/notifications, battery.
+- Big time digits right in the middle, with hours in bold. Leading zero can be hidden in 12 hr mode. Hours and minutes colours can be set independently. Seconds can be hidden.
+- 3 customisable data fields: HR history, battery, notifications, calories, distance, alarms, altitude, temperature.
 - 2 customisable meters: steps, floors climbed, active minutes (weekly), battery, calories (custom goal). The meters have auto-scaling segments and current/target value display.
 - Move bar.
 - 12 colour themes.
@@ -22,118 +18,7 @@ The techie bit: to save your watch battery, the goal meters and move bar are dra
 
 This is my first ever Connect IQ watch face (please be kind!), so I look forward to your feedback, improving the watch face, and bringing it to more devices.
 
-Reviews:
-- Video review in Spanish, by Sergio: https://www.youtube.com/watch?v=TZFhnm_y1MM.
-
 ## What's New
-
-### 2.4.5
-- Add support for Korean language (thanks to nanbean).
-- 2nd attempt at settings-related crash fix.
-
-### 2.4.4
-- Add support for Approach® S62, D2 Air, Descent™ Mk2, Garmin Swim™ 2, Rey™, MARQ® Golfer, Venu® Mercedes-Benz Collection, Venu® Sq, Venu® Sq – Music Edition.
-- Fix several settings-related crashes.
-- Update Russian translation (thanks to ya_kazachkov).
-- Correct German translation (thanks to axcro7).
-- Technical update to CIQ 3.2.2 SDK.
-
-### 2.4.3
-- Putative fix for Venu™ crash on 2.80 firmware.
-
-### 2.4.2
-- 2nd attempt at fēnix® 5X crash. Bug in 15.10 firmware (requiresBurnInProtection incorrectly set to true) identified with invaluable help from jeriveraf.
-
-### 2.4.1
-- Putative fix for fēnix® 5X series crash. Thank you everyone for your patience.
-
-### 2.4.0
-- Add support for Venu™, with new always-on layout.
-- Add support for MARQ™ Adventurer and Commander.
-- Technical update to CIQ 3.1.5 SDK.
-
-### 2.3.7
-- Add bespoke fonts and layout for fēnix® 6X.
-- Improve readability of small font for all watches.
-
-### 2.3.6
-- Technical update to CIQ 3.1.4 SDK. Add support for fēnix® 6 series (except fēnix® 6X), Captain Marvel, First Avenger and vívoactive® 4 series.
-
-### 2.3.5
-- Add support for Forerunner® 45.
-
-### 2.3.4
-- Fix crash when changing numeric settings (e.g. "Calories Goal") using Connect IQ Store app.
-
-### 2.3.3
-- New Meter Style options, and new Meter Digits Style setting.
-- Fix issue when setting field or indicator count to 0.
-- Fix display of weather icon on Forerunner® 735XT.
-- Fix German translation typo.
-- Technical update to CIQ 3.0.11 SDK. Add support for Forerunner® 245/245 Music/945 and vívolife.
-
-### 2.3.2
-- Fix issues with weather and humidity not updating.
-- Technical update to CIQ 3.0.10 SDK. Add support for MARQ™ series and vívoactive® 3 Mercedes-Benz.
-
-### 2.3.1
-- Putative fix for intermittent storage-related crashes on fēnix® 5 series, vívoactive® 3 series and Approach® S60.
-- Update Swedish translation (thanks to fredrikaverpil).
-- Technical update to CIQ 3.0.9 SDK. Add support for vívoactive® 3 Music LTE.
-
-### 2.3.0
-- Increase time font size and revise layouts for all watches.
-- Single line time for vívoactive® HR.
-
-### 2.2.6
-- Add "Humidity" data field (uses OpenWeatherMap). Many thanks to jrmcsoftware for implementing this.
-- Technical update to CIQ 3.0.8 SDK.
-
-### 2.2.5
-- "Pressure" data field should use historical data, to respect manual pressure calibration on fēnix® 5 watches (thanks to Allalin72 for help with this).
-
-### 2.2.4
-- Fix issue with move bar not clearing in "Show Filled Segments" mode (thanks to BrettL for reproduction steps).
-- Add "Corn Yellow (Dark)" and "Dayglo Orange (Light)" themes.
-- Add "Pressure" data field.
-- Technical update to CIQ 3.0.7 SDK.
-
-### 2.2.3
-- Remove need to enter OpenWeatherMap key.
-- Technical update to CIQ 3.0.6 SDK.
-
-### 2.2.2
-- Fix issue with stuck "key!" if weather key is used before it has been activated.
-
-### 2.2.1
-- Fix intermittent crash after receiving weather data.
-
-### 2.2.0
-- Add "Weather" data field: CIQ 2.x devices only, requires free OpenWeatherMap API key (https://openweathermap.org/).
-
-### 2.1.0
-- Add "Sunrise/Sunset" data field.
-- Read altitude from more up-to-date source, and enable for all watches.
-- Add Croatian date translation (thanks to Kristijan).
-- Russian translation updates, and string fixes (thanks to xgsa).
-- German translation for settings screen (thanks to dragonito).
-- Technical update to CIQ 3.0.4 SDK.
-
-### 2.0.1
-- Fix crash when changing settings.
-
-### 2.0.0
-- Russian translation for watch face and settings screen (thanks to xgsa).
-- Display of additional time zone: specify city in settings (CIQ 2.x devices only, in beta). See FAQ.
-- Re-enable support for Approach® S60.
-- Technical update to CIQ 3.0.3 SDK.
-
-### 1.8.1
-- Added "Heart Rate (Live 5s)" data field.
-- Read HR from more up-to-date source.
-- Improved clarity of battery indicator.
-- "Hide Hours Leading Zero" now setting applies to both 12- and 24-hour modes.
-- Technical update to CIQ 2.4.9 SDK, to add support for D2™ Delta, D2™ Delta PX, D2™ Delta S.
 
 ### 1.8.0
 - Added setting to control number of data fields (0-3).
@@ -243,4 +128,3 @@ Icons:
 - "[Upstairs](https://thenounproject.com/term/upstairs/304907/)" icon by Arthur Shlain from [the Noun Project](https://thenounproject.com).
 - "[Stopwatch](https://thenounproject.com/term/stopwatch/319102/)" icon by Rohith M S from [the Noun Project](https://thenounproject.com).
 - "[Mountains](https://thenounproject.com/term/mountains/1468194/)" icon by Deemak Daksina from [the Noun Project](https://thenounproject.com).
-- "[Humidity](https://thenounproject.com/term/humidity/1554816/)" icon by Akriti Bhusal from [the Noun Project](https://thenounproject.com).

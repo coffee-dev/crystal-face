@@ -3,121 +3,145 @@ using Toybox.Graphics as Gfx;
 using Toybox.System as Sys;
 using Toybox.Application as App;
 
+const INDICATOR_1_TYPE = "Indicator1Type";
+const INDICATOR_2_TYPE = "Indicator2Type";
+const INDICATOR_3_TYPE = "Indicator3Type";
+
 class Indicators extends Ui.Drawable {
 
-	private var mSpacing;
-	private var mIsHorizontal = false;
+	private var mIconsFont;
+	private var mSpacingX;
+	private var mSpacingY;
 	private var mBatteryWidth;
+	private var mBatteryHeight;
 
-	private var mIndicator1Type;
-	private var mIndicator2Type;
-	private var mIndicator3Type;
-
-	// private enum /* INDICATOR_TYPES */ {
-	// 	INDICATOR_TYPE_BLUETOOTH,
-	// 	INDICATOR_TYPE_ALARMS,
-	// 	INDICATOR_TYPE_NOTIFICATIONS,
-	// 	INDICATOR_TYPE_BLUETOOTH_OR_NOTIFICATIONS,
-	// 	INDICATOR_TYPE_BATTERY
-	// }
+	private var INDICATOR_TYPES = [
+		:INDICATOR_TYPE_BLUETOOTH,
+		:INDICATOR_TYPE_ALARMS,
+		:INDICATOR_TYPE_NOTIFICATIONS,
+		:INDICATOR_TYPE_BLUETOOTH_OR_NOTIFICATIONS,
+		:INDICATOR_TYPE_BATTERY,
+		:INDICATOR_TYPE_DO_NOT_DISTURB
+	];
 
 	function initialize(params) {
 		Drawable.initialize(params);
 
-		if (params[:spacingX] != null) {
-			mSpacing = params[:spacingX];
-			mIsHorizontal = true;
-		} else {
-			mSpacing = params[:spacingY];
-		}
+		mSpacingX = params[:spacingX];
+		mSpacingY = params[:spacingY];
 		mBatteryWidth = params[:batteryWidth];
-
-		onSettingsChanged();
+		mBatteryHeight = params[:batteryHeight];
 	}
 
-	function onSettingsChanged() {
-		mIndicator1Type = App.getApp().getProperty("Indicator1Type");
-		mIndicator2Type = App.getApp().getProperty("Indicator2Type");
-		mIndicator3Type = App.getApp().getProperty("Indicator3Type");
+	function setFont(iconsFont) {
+		mIconsFont = iconsFont;
 	}
 
 	function draw(dc) {
 
-		// #123 Protect against null or unexpected type e.g. String.
-		var indicatorCount = App.getApp().getIntProperty("IndicatorCount", 1);
+		// Vertical layout.
+		if (mSpacingX) {
+			switch (App.getApp().getProperty("IndicatorCount")) {
+				case 3:
+					drawIndicator(dc, App.getApp().getProperty(INDICATOR_1_TYPE), locX - mSpacingX, locY);
+					drawIndicator(dc, App.getApp().getProperty(INDICATOR_2_TYPE), locX, locY);
+					drawIndicator(dc, App.getApp().getProperty(INDICATOR_3_TYPE), locX + mSpacingX, locY);
+					break;
+				case 2:
+					drawIndicator(dc, App.getApp().getProperty(INDICATOR_1_TYPE), locX - (mSpacingX / 2), locY);
+					drawIndicator(dc, App.getApp().getProperty(INDICATOR_2_TYPE), locX + (mSpacingX / 2), locY);
+					break;
+				case 1:
+					drawIndicator(dc, App.getApp().getProperty(INDICATOR_1_TYPE), locX, locY);
+					break;
+				case 0:
+					break;
+			}
 
-		// Horizontal layout for rectangle-148x205.
-		if (mIsHorizontal) {
-			drawHorizontal(dc, indicatorCount);
-
-		// Vertical layout for others.
-		} else {
-			drawVertical(dc, indicatorCount);
+		// Horizontal layout.
+		} else if (mSpacingY) {
+			switch (App.getApp().getProperty("IndicatorCount")) {
+				case 3:
+					drawIndicator(dc, App.getApp().getProperty(INDICATOR_1_TYPE), locX, locY - mSpacingY);
+					drawIndicator(dc, App.getApp().getProperty(INDICATOR_2_TYPE), locX, locY);
+					drawIndicator(dc, App.getApp().getProperty(INDICATOR_3_TYPE), locX, locY + mSpacingY);
+					break;
+				case 2:
+					drawIndicator(dc, App.getApp().getProperty(INDICATOR_1_TYPE), locX, locY - (mSpacingY / 2));
+					drawIndicator(dc, App.getApp().getProperty(INDICATOR_2_TYPE), locX, locY + (mSpacingY / 2));
+					break;
+				case 1:
+					drawIndicator(dc, App.getApp().getProperty(INDICATOR_1_TYPE), locX, locY);
+					break;
+				case 0:
+					break;
+			}
 		}
 	}
 
-	(:horizontal_indicators)
-	function drawHorizontal(dc, indicatorCount) {
-		if (indicatorCount == 3) {
-			drawIndicator(dc, mIndicator1Type, locX - mSpacing, locY);
-			drawIndicator(dc, mIndicator2Type, locX, locY);
-			drawIndicator(dc, mIndicator3Type, locX + mSpacing, locY);
-		} else if (indicatorCount == 2) {
-			drawIndicator(dc, mIndicator1Type, locX - (mSpacing / 2), locY);
-			drawIndicator(dc, mIndicator2Type, locX + (mSpacing / 2), locY);
-		} else if (indicatorCount == 1) {
-			drawIndicator(dc, mIndicator1Type, locX, locY);
-		}
-	}
-
-	(:vertical_indicators)
-	function drawVertical(dc, indicatorCount) {
-		if (indicatorCount == 3) {
-			drawIndicator(dc, mIndicator1Type, locX, locY - mSpacing);
-			drawIndicator(dc, mIndicator2Type, locX, locY);
-			drawIndicator(dc, mIndicator3Type, locX, locY + mSpacing);
-		} else if (indicatorCount == 2) {
-			drawIndicator(dc, mIndicator1Type, locX, locY - (mSpacing / 2));
-			drawIndicator(dc, mIndicator2Type, locX, locY + (mSpacing / 2));
-		} else if (indicatorCount == 1) {
-			drawIndicator(dc, mIndicator1Type, locX, locY);
-		}
-	}
-
-	function drawIndicator(dc, indicatorType, x, y) {
+	function drawIndicator(dc, rawIndicatorType, x, y) {
+		var indicatorType = INDICATOR_TYPES[rawIndicatorType];
 
 		// Battery indicator.
-		if (indicatorType == 4 /* INDICATOR_TYPE_BATTERY */) {
-			drawBatteryMeter(dc, x, y, mBatteryWidth, mBatteryWidth / 2);
+		if (indicatorType == :INDICATOR_TYPE_BATTERY) {
+			App.getApp().getView().drawBatteryMeter(dc, x, y, mBatteryWidth, mBatteryHeight);
 			return;
 		}
 
+		var value = getValueForIndicatorType(indicatorType);
+
+		var colour;
+		if (value) {
+			colour = App.getApp().getProperty("ThemeColour");
+		} else {
+			colour = App.getApp().getProperty("IndicatorBackgroundColour");
+		}
+		dc.setColor(colour, Graphics.COLOR_TRANSPARENT);
+
 		// Show notifications icon if connected and there are notifications, bluetoothicon otherwise.
-		var settings = Sys.getDeviceSettings();
-		if (indicatorType == 3 /* INDICATOR_TYPE_BLUETOOTH_OR_NOTIFICATIONS */) {
+		if (indicatorType == :INDICATOR_TYPE_BLUETOOTH_OR_NOTIFICATIONS) {
+			var settings = Sys.getDeviceSettings();
 			if (settings.phoneConnected && (settings.notificationCount > 0)) {
-				indicatorType = 2; // INDICATOR_TYPE_NOTIFICATIONS
+				indicatorType = :INDICATOR_TYPE_NOTIFICATIONS;
 			} else {
-				indicatorType = 0; // INDICATOR_TYPE_BLUETOOTH
+				indicatorType = :INDICATOR_TYPE_BLUETOOTH;
 			}
 		}
-
-		// Get value for indicator type.
-		var value = [
-			/* INDICATOR_TYPE_BLUETOOTH */ settings.phoneConnected,
-			/* INDICATOR_TYPE_ALARMS */ settings.alarmCount > 0,
-			/* INDICATOR_TYPE_NOTIFICATIONS */ settings.notificationCount > 0
-		][indicatorType];
-
-		dc.setColor(value ? gThemeColour : gMeterBackgroundColour, Graphics.COLOR_TRANSPARENT);
 
 		// Icon.
 		dc.drawText(
 			x,
 			y,
-			gIconsFont,
-			["8", ":", "5"][indicatorType], // Get icon font char for indicator type.
+			mIconsFont,
+			App.getApp().getView().getIconFontChar(indicatorType),
 			Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
 		);
+	}
+
+	function getValueForIndicatorType(type) {
+		var value = false;
+
+		var settings = Sys.getDeviceSettings();
+
+		switch (type) {
+			case :INDICATOR_TYPE_BLUETOOTH:
+			case :INDICATOR_TYPE_BLUETOOTH_OR_NOTIFICATIONS:
+				value = settings.phoneConnected;
+				break;
+
+			case :INDICATOR_TYPE_ALARMS:
+				value = (settings.alarmCount > 0);
+				break;
+
+			case :INDICATOR_TYPE_NOTIFICATIONS:
+				value = (settings.notificationCount > 0);
+				break;
+				
+			case :INDICATOR_TYPE_DO_NOT_DISTURB:
+				value = settings.doNotDisturb;
+				break;
+		}
+
+		return value;
 	}
 }

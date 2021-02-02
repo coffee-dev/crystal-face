@@ -2,7 +2,12 @@ using Toybox.WatchUi as Ui;
 using Toybox.System as Sys;
 using Toybox.Application as App;
 using Toybox.ActivityMonitor as ActivityMonitor;
-using Toybox.Graphics;
+
+const MOVE_BAR_STYLE = [
+	:SHOW_ALL_SEGMENTS,
+	:SHOW_FILLED_SEGMENTS,
+	:HIDDEN
+];
 
 class MoveBar extends Ui.Drawable {
 
@@ -21,12 +26,6 @@ class MoveBar extends Ui.Drawable {
 
 	// Either mBaseWidth, or a calculated full width.
 	private var mCurrentWidth;
-
-	// private enum /* MOVE_BAR_STYLE */ {
-	// 	ALL_SEGMENTS,
-	// 	FILLED_SEGMENTS,
-	// 	HIDDEN
-	// };
 
 	function initialize(params) {
 		Drawable.initialize(params);
@@ -52,34 +51,39 @@ class MoveBar extends Ui.Drawable {
 	}
 	
 	function draw(dc) {
-		if (App.getApp().getProperty("MoveBarStyle") == 2 /* HIDDEN */) {
+		if (MOVE_BAR_STYLE[App.getApp().getProperty("MoveBarStyle")] == :HIDDEN) {
 			return;
 		}
 
 		var info = ActivityMonitor.getInfo();
 		var currentMoveBarLevel = info.moveBarLevel;
 
+		var moveBarBackgroundColour = App.getApp().getProperty("MoveBarBackgroundColour");
+
 		// Calculate current width here, now that DC is accessible.
-		// Balance head/tail positions in full width mode.
-		mCurrentWidth = mIsFullWidth ? (dc.getWidth() - (2 * mX) + mTailWidth) : mBaseWidth;
+		if (mIsFullWidth) {
+			mCurrentWidth = dc.getWidth() - (2 * mX) + mTailWidth; // Balance head/tail positions.
+		} else {
+			mCurrentWidth = mBaseWidth;
+		}
 
 		// #21 Force unbuffered drawing on fr735xt (CIQ 2.x) to reduce memory usage.
 		if ((Graphics has :BufferedBitmap) && (Sys.getDeviceSettings().screenShape != Sys.SCREEN_SHAPE_SEMI_ROUND)) {
-			drawBuffered(dc, currentMoveBarLevel);
+			drawBuffered(dc, currentMoveBarLevel, moveBarBackgroundColour);
 		} else {
-			//drawUnbuffered(dc, currentMoveBarLevel);
+			//drawUnbuffered(dc, currentMoveBarLevel, moveBarBackgroundColour);
 
 			// Draw bars vertically centred on mY.
-			drawBars(dc, mX, mY - (mHeight / 2),  currentMoveBarLevel);
+			drawBars(dc, mX, mY - (mHeight / 2),  currentMoveBarLevel, moveBarBackgroundColour);
 		}		
 	}
 
 	(:buffered)
-	function drawBuffered(dc, currentMoveBarLevel) {
+	function drawBuffered(dc, currentMoveBarLevel, moveBarBackgroundColour) {
 		// Recreate buffers if this is the very first draw(), if optimised colour palette has changed e.g. theme colour change, or
 		// move bar width changes from base width to full width.
 		if (mBufferNeedsRecreate) {
-			recreateBuffer();
+			recreateBuffer(moveBarBackgroundColour);
 		}
 
 		// #7 Redraw buffer (only) if move bar level changes.
@@ -89,16 +93,8 @@ class MoveBar extends Ui.Drawable {
 		}
 		
 		if (mBufferNeedsRedraw) {
-			var bufferDc = mBuffer.getDc();
-
-			// #85: Clear buffer before any redraw, so that move bar clears correctly in "Filled Segments" mode (no bars will
-			// be drawn in this mode when move bar clears). Does not seem possible to clear with COLOR_TRANSPARENT, so use
-			// background colour instead.
-			bufferDc.setColor(Graphics.COLOR_TRANSPARENT, gBackgroundColour);
-			bufferDc.clear();
-
 			// Draw bars at top left of buffer.
-			drawBars(bufferDc, 0, 0, currentMoveBarLevel);
+			drawBars(mBuffer.getDc(), 0, 0, currentMoveBarLevel, moveBarBackgroundColour);
 			mBufferNeedsRedraw = false;
 		}
 
@@ -109,13 +105,20 @@ class MoveBar extends Ui.Drawable {
 	}
 
 	(:buffered)
-	function recreateBuffer() {
+	function recreateBuffer(moveBarBackgroundColour) {
 		mBuffer = new Graphics.BufferedBitmap({
 			:width => mCurrentWidth,
 			:height => mHeight,
 
 			// First palette colour appears to determine initial colour of buffer.
-			:palette => [gBackgroundColour, gMeterBackgroundColour, gThemeColour]
+			:palette => [
+				Graphics.COLOR_TRANSPARENT,
+				moveBarBackgroundColour,
+				Helpers.GetHeatMapColour(5,10),
+				Helpers.GetHeatMapColour(4,10),
+				Helpers.GetHeatMapColour(3,10),
+				Helpers.GetHeatMapColour(2,10),
+				Helpers.GetHeatMapColour(1,10)]
 		});
 		mBufferNeedsRecreate = false;
 		mBufferNeedsRedraw = true; // Ensure newly-created buffer is drawn next.
@@ -123,26 +126,36 @@ class MoveBar extends Ui.Drawable {
 
 	// Draw bars to supplied DC: screen or buffer, depending on drawing mode.
 	// x and y are co-ordinates of top-left corner of move bar.
-	function drawBars(dc, x, y, currentMoveBarLevel) {
+	function drawBars(dc, x, y, currentMoveBarLevel, moveBarBackgroundColour) {
 		var barWidth = getBarWidth();
 		var thisBarWidth;
 		var thisBarColour = 0;
 		var barX = x + mTailWidth;
-		var moveBarStyle = App.getApp().getProperty("MoveBarStyle");
+		var moveBarStyle = MOVE_BAR_STYLE[App.getApp().getProperty("MoveBarStyle")];
+		var palette = mBuffer.getPalette();
 
 		// One-based, to correspond with move bar level (zero means no bars).
 		for (var i = 1; i <= ActivityMonitor.MOVE_BAR_LEVEL_MAX; ++i) {
 
 			// First bar is double width.
-			thisBarWidth = (i == 1) ? (2 * barWidth) : barWidth;
+			if (i == 1) {
+				thisBarWidth = 2 * barWidth;
+			} else {
+				thisBarWidth = barWidth;
+			}
 
 			// Move bar at this level or greater, so show regardless of MoveBarStyle setting.
 			if (i <= currentMoveBarLevel) {
-				thisBarColour = gThemeColour;
+				var iColour = palette.size() - 1 - (ActivityMonitor.MOVE_BAR_LEVEL_MAX - i);
+				if (iColour < 2) {
+					iColour = 2;
+				}
 
-			// Move bar below this level, so only show if MoveBarStyle setting is ALL_SEGMENTS.
-			} else if (moveBarStyle == 0 /* ALL_SEGMENTS */) {
-				thisBarColour = gMeterBackgroundColour;
+				thisBarColour = palette[iColour];
+
+			// Move bar below this level, so only show if MoveBarStyle setting is SHOW_ALL_SEGMENTS.
+			} else if (moveBarStyle == :SHOW_ALL_SEGMENTS) {
+				thisBarColour = moveBarBackgroundColour;
 
 			// Otherwise, do not show this, or any higher level.
 			} else {
@@ -179,14 +192,13 @@ class MoveBar extends Ui.Drawable {
 	function drawBar(dc, colour, x, y, width) {
 		var points = new [6];
 		var halfHeight = (mHeight / 2);
-		width -= 1; // E.g. width 5 covers pixels 0 to 4.
 
-		points[0] = [x                     , y];
-		points[1] = [x - mTailWidth        , y - halfHeight];
+		points[0] = [x, y];
+		points[1] = [x - mTailWidth, y - halfHeight];
 		points[2] = [x - mTailWidth + width, y - halfHeight];
-		points[3] = [x              + width, y];
-		points[4] = [x - mTailWidth + width, y + halfHeight];
-		points[5] = [x - mTailWidth        , y + halfHeight];
+		points[3] = [x + width, y];
+		points[4] = [x - mTailWidth + width - /* Inclusive? */ 1, y + halfHeight + /* Exclusive? */ 1];
+		points[5] = [x - mTailWidth - /* Inclusive? */ 1, y + halfHeight + /* Exclusive? */ 1];
 
 		dc.setColor(colour, Graphics.COLOR_TRANSPARENT);
 		dc.fillPolygon(points);

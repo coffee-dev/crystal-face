@@ -1,22 +1,13 @@
 project.manifest = manifest.xml
 
-# Exclude other source directories (default behaviour is to include).
-base.sourcePath = source
-
-# #122: fr245/fr245m are CIQ 3.x, but do not support floors climbed.
-fr245.resourcePath = $(fr245.resourcePath);resources-no_floors
-fr245m.resourcePath = $(fr245m.resourcePath);resources-no_floors
-
 # Smaller round watches use small time font.
 round-218x218.resourcePath = $(round-218x218.resourcePath);resources-small-time
 
 # Flat tyre watches use small time font and small icons.
-# Ditto smallest round watches.
 semiround-215x180.resourcePath = $(semiround-215x180.resourcePath);resources-small-time;resources-small-icons
-round-208x208.resourcePath = $(round-208x208.resourcePath);resources-small-time;resources-small-icons
 
-# Rectangle watches generally same as flat tyre, but have some overrides.
-rectangle.resourcePath = $(rectangle.resourcePath);resources-small-time;resources-small-icons
+# Rectangle watches use smaller time font (but same seconds font as small time) and small icons.
+rectangle.resourcePath = $(rectangle.resourcePath);resources-small-time;resources-smaller-time;resources-small-icons
 
 # CIQ 1.x watches only have 16 colours, so cannot support all themes.
 # No Floors or Active Minutes support, so default to showing Battery in right meter, and Calories in the centre field.
@@ -57,21 +48,3 @@ vivoactive.excludeAnnotations = buffered
 # Continue to use fr735xt-specific properties and settings, however, as does support active minutes.
 fr735xt.resourcePath = $(fr735xt.resourcePath);resources-semiround-215x180-ciq_1.x
 fr735xt.excludeAnnotations = buffered
-
-# Exclude unused date/indicator code from 60kB devices (extend to other devices as necessary).
-fr735xt.excludeAnnotations = $(fr735xt.excludeAnnotations);double_line_date;horizontal_indicators
-vivoactive_hr.excludeAnnotations = $(vivoactive_hr.excludeAnnotations);double_line_date;vertical_indicators
-
-# #124: fr45's settings.xml repeats whole of resources-ciq_1.x, then overrides, as settings were not correct inherited.
-#       Exclude background methods as memory is very limited (extend to other devices as necessary).
-fr45.excludeAnnotations = $(fr45.excludeAnnotations);buffered;background_method;double_line_date;horizontal_indicators
-
-# garminswim2 has same limitations as fr45 (CIQ 1.x, low memory, low colours).
-garminswim2.excludeAnnotations = $(garminswim2.excludeAnnotations);buffered;background_method;double_line_date;horizontal_indicators
-
-# #144: Always on display.
-venu.sourcePath = $(venu.sourcePath);always-on-source
-venud.sourcePath = $(venud.sourcePath);always-on-source
-venusq.sourcePath = $(venusq.sourcePath);always-on-source
-venusqm.sourcePath = $(venusqm.sourcePath);always-on-source
-d2air.sourcePath = $(d2air.sourcePath);always-on-source

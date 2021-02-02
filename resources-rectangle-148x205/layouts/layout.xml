@@ -3,6 +3,7 @@
 
 	<drawable id="LeftGoalMeter" class="GoalMeter">
 		<param name="side">:left</param>
+		<param name="shape">:line</param>
 		<param name="stroke">6</param>
 		<param name="height">205</param>
 		<param name="separator">2</param>
@@ -10,20 +11,19 @@
 
 	<drawable id="RightGoalMeter" class="GoalMeter">
 		<param name="side">:right</param>
+		<param name="shape">:line</param>
 		<param name="stroke">6</param>
 		<param name="height">205</param>
 		<param name="separator">2</param>
 	</drawable>
 
-	<drawable id="DataArea" class="DataArea">
-		<param name="locX">34</param>
-		<param name="width">80</param>
-		<param name="row1Y">180</param>
-		<param name="row2Y">196</param>
-		<param name="goalIconY">178</param>
-		<param name="goalIconLeftX">11</param>
-		<param name="goalIconRightX">137</param>
-	</drawable>
+	<label id="LeftGoalIcon" text="0" x="11" y="172" font="@Fonts.IconsFont" color="Gfx.COLOR_BLUE" justification="Gfx.TEXT_JUSTIFY_LEFT"/>
+	<label id="LeftGoalCurrent" text="3500" x="34" y="174" font="@Fonts.NormalFont" color="Gfx.COLOR_WHITE" justification="Gfx.TEXT_JUSTIFY_LEFT | Gfx.TEXT_JUSTIFY_VCENTER"/>
+	<label id="LeftGoalMax" text="5000" x="34" y="190" font="@Fonts.NormalFont" color="Gfx.COLOR_LT_GRAY" justification="Gfx.TEXT_JUSTIFY_LEFT | Gfx.TEXT_JUSTIFY_VCENTER"/>
+
+	<label id="RightGoalIcon" text="1" x="137" y="172" font="@Fonts.IconsFont" color="Gfx.COLOR_BLUE" justification="Gfx.TEXT_JUSTIFY_RIGHT"/>
+	<label id="RightGoalCurrent" text="6" x="114" y="174" font="@Fonts.NormalFont" color="Gfx.COLOR_WHITE" justification="Gfx.TEXT_JUSTIFY_RIGHT | Gfx.TEXT_JUSTIFY_VCENTER"/>
+	<label id="RightGoalMax" text="10" x="114" y="190" font="@Fonts.NormalFont" color="Gfx.COLOR_LT_GRAY" justification="Gfx.TEXT_JUSTIFY_RIGHT | Gfx.TEXT_JUSTIFY_VCENTER"/>
 
 	<drawable id="DataFields" class="DataFields">
 		<param name="left">33</param>
@@ -31,39 +31,35 @@
 		<param name="top">11</param>
 		<param name="bottom">30</param>
 		<param name="batteryWidth">24</param>
+		<param name="batteryHeight">12</param>
 	</drawable>
 
 	<drawable id="Date" class="DateLine">
-		<param name="y">57</param>
+		<param name="y">141</param>
 	</drawable>
 
 	<drawable id="Indicators" class="Indicators">
-		<param name="locX">74</param>
-		<param name="locY">154</param>
-		<param name="spacingX">32</param>
-		<param name="batteryWidth">22</param>
+		<param name="locX">29</param>
+		<param name="locY">102</param>
+		<param name="spacingY">26</param>
 	</drawable>
 
 	<drawable id="Time" class="ThickThinTime">
-		<param name="secondsX">105</param>
-		<param name="secondsY">113</param>
+		<param name="verticalOffset">6</param> 
+
+		<param name="secondsX">102</param>
+		<param name="secondsY">85</param>
 
 		<!-- Partial updates not supported -->	
-		<!-- param name="secondsClipY">122</param-->
+		<!-- param name="secondsClipY">94</param-->
 		<!-- param name="secondsClipWidth">22</param-->
 		<!-- param name="secondsClipHeight">15</param-->
-
-		<!-- Move time up slightly to centre vertically within available space -->
-		<param name="adjustY">-6</param>
-
-		<!-- Limited horizontal space, so reduce AM/PM offset -->
-		<param name="amPmOffset">0</param>
 	</drawable>
 
 	<drawable id="MoveBar" class="MoveBar">
-		<param name="x">23</param>
-		<param name="y">130</param>
-		<param name="width">75</param>
+		<param name="x">33</param>
+		<param name="y">122</param>
+		<param name="width">85</param>
 		<param name="height">7</param>
 		<param name="separator">3</param>
 	</drawable>

@@ -1,8 +1,3 @@
 <fonts>
-	<font id="IconsFont" filename="crystal-icons-small.fnt" antialias="true"/>
-
-	<!-- Font size chosen such that height of sunshine icon is 20px -->
-	<!-- .fnt file modified such that day icons start from "A", night icons start from "a", "broken clouds" ("I") is shared -->
-	<font id="WeatherIconsFontDay" filename="weather-icons-20.fnt" antialias="true" filter="ABCDEFGHI"/>
-	<font id="WeatherIconsFontNight" filename="weather-icons-20.fnt" antialias="true" filter="abcdefghI"/>
+	<font id="IconsFont" filename="crystal-icons-small.fnt" antialias="true" />
 </fonts>

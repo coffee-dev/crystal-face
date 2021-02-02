@@ -8,14 +8,12 @@
 			<!--listEntry value="4">@Strings.ThemeCornflowerBlueDark</listEntry-->
 			<!--listEntry value="5">@Strings.ThemeLemonCreamDark</listEntry-->
 			<!--listEntry value="12">@Strings.ThemeVividYellowDark</listEntry-->
-			<listEntry value="14">@Strings.ThemeCornYellowDark</listEntry>
 			<listEntry value="6">@Strings.ThemeDaygloOrangeDark</listEntry>
 			<listEntry value="8">@Strings.ThemeMonoDark</listEntry>
 			<listEntry value="3">@Strings.ThemeMonoLight</listEntry>
 			<listEntry value="9">@Strings.ThemeBlueLight</listEntry>
 			<listEntry value="10">@Strings.ThemeGreenLight</listEntry>
 			<listEntry value="11">@Strings.ThemeRedLight</listEntry>
-			<listEntry value="13">@Strings.ThemeDaygloOrangeLight</listEntry>
 		</settingConfig>
 	</setting>
 
@@ -26,7 +24,6 @@
 			<listEntry value="2">@Strings.ActiveMinutes</listEntry>
 			<listEntry value="-1">@Strings.Battery</listEntry>
 			<listEntry value="-2">@Strings.CaloriesManualGoal</listEntry>
-			<listEntry value="-3">@Strings.Off</listEntry>
 		</settingConfig>
 	</setting>
 
@@ -37,7 +34,6 @@
 			<listEntry value="2">@Strings.ActiveMinutes</listEntry>
 			<listEntry value="-1">@Strings.Battery</listEntry>
 			<listEntry value="-2">@Strings.CaloriesManualGoal</listEntry>
-			<listEntry value="-3">@Strings.Off</listEntry>
 		</settingConfig>
 	</setting>
 
@@ -51,12 +47,8 @@
 			<listEntry value="3">@Strings.Calories</listEntry>
 			<listEntry value="4">@Strings.Distance</listEntry>
 			<listEntry value="5">@Strings.Alarms</listEntry>
-			<listEntry value="6">@Strings.Altitude</listEntry>
-			<!--listEntry value="12">@Strings.Pressure</listEntry-->
+			<!--listEntry value="6">@Strings.Altitude</listEntry-->
 			<!--listEntry value="7">@Strings.Temperature</listEntry-->
-			<listEntry value="10">@Strings.SunriseSunset</listEntry>
-			<listEntry value="11">@Strings.Weather</listEntry>
-			<listEntry value="13">@Strings.Humidity</listEntry>
 		</settingConfig>
 	</setting>
 
@@ -70,12 +62,8 @@
 			<listEntry value="3">@Strings.Calories</listEntry>
 			<listEntry value="4">@Strings.Distance</listEntry>
 			<listEntry value="5">@Strings.Alarms</listEntry>
-			<listEntry value="6">@Strings.Altitude</listEntry>
-			<!--listEntry value="12">@Strings.Pressure</listEntry-->
+			<!--listEntry value="6">@Strings.Altitude</listEntry-->
 			<!--listEntry value="7">@Strings.Temperature</listEntry-->
-			<listEntry value="10">@Strings.SunriseSunset</listEntry>
-			<listEntry value="11">@Strings.Weather</listEntry>
-			<listEntry value="13">@Strings.Humidity</listEntry>
 		</settingConfig>
 	</setting>
 
@@ -89,12 +77,8 @@
 			<listEntry value="3">@Strings.Calories</listEntry>
 			<listEntry value="4">@Strings.Distance</listEntry>
 			<listEntry value="5">@Strings.Alarms</listEntry>
-			<listEntry value="6">@Strings.Altitude</listEntry>
-			<!--listEntry value="12">@Strings.Pressure</listEntry-->
+			<!--listEntry value="6">@Strings.Altitude</listEntry-->
 			<!--listEntry value="7">@Strings.Temperature</listEntry-->
-			<listEntry value="10">@Strings.SunriseSunset</listEntry>
-			<listEntry value="11">@Strings.Weather</listEntry>
-			<listEntry value="13">@Strings.Humidity</listEntry>
 		</settingConfig>
 	</setting>
 

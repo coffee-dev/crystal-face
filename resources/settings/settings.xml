@@ -13,14 +13,12 @@
 			<listEntry value="4">@Strings.ThemeCornflowerBlueDark</listEntry>
 			<listEntry value="5">@Strings.ThemeLemonCreamDark</listEntry>
 			<listEntry value="12">@Strings.ThemeVividYellowDark</listEntry>
-			<listEntry value="14">@Strings.ThemeCornYellowDark</listEntry>
 			<listEntry value="6">@Strings.ThemeDaygloOrangeDark</listEntry>
 			<listEntry value="8">@Strings.ThemeMonoDark</listEntry>
 			<listEntry value="3">@Strings.ThemeMonoLight</listEntry>
 			<listEntry value="9">@Strings.ThemeBlueLight</listEntry>
 			<listEntry value="10">@Strings.ThemeGreenLight</listEntry>
 			<listEntry value="11">@Strings.ThemeRedLight</listEntry>
-			<listEntry value="13">@Strings.ThemeDaygloOrangeLight</listEntry>
 		</settingConfig>
 	</setting>
 
@@ -29,9 +27,7 @@
 			<listEntry value="0">@Strings.Steps</listEntry>
 			<listEntry value="1">@Strings.FloorsClimbed</listEntry>
 			<listEntry value="2">@Strings.ActiveMinutes</listEntry>
-			<listEntry value="-1">@Strings.Battery</listEntry>
 			<listEntry value="-2">@Strings.CaloriesManualGoal</listEntry>
-			<listEntry value="-3">@Strings.Off</listEntry>
 		</settingConfig>
 	</setting>
 
@@ -40,26 +36,14 @@
 			<listEntry value="0">@Strings.Steps</listEntry>
 			<listEntry value="1">@Strings.FloorsClimbed</listEntry>
 			<listEntry value="2">@Strings.ActiveMinutes</listEntry>
-			<listEntry value="-1">@Strings.Battery</listEntry>
 			<listEntry value="-2">@Strings.CaloriesManualGoal</listEntry>
-			<listEntry value="-3">@Strings.Off</listEntry>
 		</settingConfig>
 	</setting>
 
 	<setting propertyKey="@Properties.GoalMeterStyle" title="@Strings.GoalMeterStyleTitle">
 		<settingConfig type="list">
-			<listEntry value="0">@Strings.AllSegments</listEntry>
-			<listEntry value="1">@Strings.AllSegmentsMerged</listEntry>
-			<listEntry value="3">@Strings.FilledSegments</listEntry>
-			<listEntry value="4">@Strings.FilledSegmentsMerged</listEntry>
-			<listEntry value="2">@Strings.Hidden</listEntry>
-		</settingConfig>
-	</setting>
-
-	<setting propertyKey="@Properties.GoalMeterDigitsStyle" title="@Strings.MeterDigitsStyleTitle">
-		<settingConfig type="list">
-			<listEntry value="0">@Strings.CurrentTarget</listEntry>
-			<listEntry value="1">@Strings.Current</listEntry>
+			<listEntry value="0">@Strings.MultiSegments</listEntry>
+			<listEntry value="1">@Strings.SingleSegment</listEntry>
 			<listEntry value="2">@Strings.Hidden</listEntry>
 		</settingConfig>
 	</setting>
@@ -83,11 +67,8 @@
 			<listEntry value="4">@Strings.Distance</listEntry>
 			<listEntry value="5">@Strings.Alarms</listEntry>
 			<listEntry value="6">@Strings.Altitude</listEntry>
-			<listEntry value="12">@Strings.Pressure</listEntry>
 			<listEntry value="7">@Strings.Temperature</listEntry>
-			<listEntry value="10">@Strings.SunriseSunset</listEntry>
-			<listEntry value="11">@Strings.Weather</listEntry>
-			<listEntry value="13">@Strings.Humidity</listEntry>
+			<listEntry value="10">@Strings.FloorsClimbed</listEntry>
 		</settingConfig>
 	</setting>
 
@@ -102,11 +83,8 @@
 			<listEntry value="4">@Strings.Distance</listEntry>
 			<listEntry value="5">@Strings.Alarms</listEntry>
 			<listEntry value="6">@Strings.Altitude</listEntry>
-			<listEntry value="12">@Strings.Pressure</listEntry>
 			<listEntry value="7">@Strings.Temperature</listEntry>
-			<listEntry value="10">@Strings.SunriseSunset</listEntry>
-			<listEntry value="11">@Strings.Weather</listEntry>
-			<listEntry value="13">@Strings.Humidity</listEntry>
+			<listEntry value="10">@Strings.FloorsClimbed</listEntry>
 		</settingConfig>
 	</setting>
 
@@ -121,11 +99,8 @@
 			<listEntry value="4">@Strings.Distance</listEntry>
 			<listEntry value="5">@Strings.Alarms</listEntry>
 			<listEntry value="6">@Strings.Altitude</listEntry>
-			<listEntry value="12">@Strings.Pressure</listEntry>
 			<listEntry value="7">@Strings.Temperature</listEntry>
-			<listEntry value="10">@Strings.SunriseSunset</listEntry>
-			<listEntry value="11">@Strings.Weather</listEntry>
-			<listEntry value="13">@Strings.Humidity</listEntry>
+			<listEntry value="10">@Strings.FloorsClimbed</listEntry>
 		</settingConfig>
 	</setting>
 
@@ -140,6 +115,7 @@
 			<listEntry value="2">@Strings.Notifications</listEntry>
 			<listEntry value="3">@Strings.BluetoothOrNotifications</listEntry>
 			<listEntry value="4">@Strings.Battery</listEntry>
+			<listEntry value="5">@Strings.DoNotDisturb</listEntry>
 		</settingConfig>
 	</setting>
 
@@ -150,6 +126,7 @@
 			<listEntry value="2">@Strings.Notifications</listEntry>
 			<listEntry value="3">@Strings.BluetoothOrNotifications</listEntry>
 			<listEntry value="4">@Strings.Battery</listEntry>
+			<listEntry value="5">@Strings.DoNotDisturb</listEntry>
 		</settingConfig>
 	</setting>
 
@@ -160,22 +137,23 @@
 			<listEntry value="2">@Strings.Notifications</listEntry>
 			<listEntry value="3">@Strings.BluetoothOrNotifications</listEntry>
 			<listEntry value="4">@Strings.Battery</listEntry>
+			<listEntry value="5">@Strings.DoNotDisturb</listEntry>
 		</settingConfig>
 	</setting>
 
 	<setting propertyKey="@Properties.HoursColourOverride" title="@Strings.HoursColourTitle">
 		<settingConfig type="list">
-			<listEntry value="0">@Strings.FromTheme</listEntry>
-			<listEntry value="1">@Strings.MonoHighlight</listEntry>
-			<listEntry value="2">@Strings.Mono</listEntry>
+			<listEntry value="-1">@Strings.FromTheme</listEntry>
+			<listEntry value="-2">@Strings.MonoHighlight</listEntry>
+			<listEntry value="-3">@Strings.Mono</listEntry>
 		</settingConfig>
 	</setting>
 
 	<setting propertyKey="@Properties.MinutesColourOverride" title="@Strings.MinutesColourTitle">
 		<settingConfig type="list">
-			<listEntry value="0">@Strings.FromTheme</listEntry>
-			<listEntry value="1">@Strings.MonoHighlight</listEntry>
-			<listEntry value="2">@Strings.Mono</listEntry>
+			<listEntry value="-1">@Strings.FromTheme</listEntry>
+			<listEntry value="-2">@Strings.MonoHighlight</listEntry>
+			<listEntry value="-3">@Strings.Mono</listEntry>
 		</settingConfig>
 	</setting>
 
@@ -187,14 +165,10 @@
 		<settingConfig type="boolean"/>
 	</setting>
 
-	<setting propertyKey="@Properties.LocalTimeInCity" title="@Strings.LocalTimeInCityTitle">
-		<settingConfig type="alphaNumeric"/>
-	</setting>
-
 	<setting propertyKey="@Properties.MoveBarStyle" title="@Strings.MoveBarStyleTitle">
 		<settingConfig type="list">
-			<listEntry value="0">@Strings.AllSegments</listEntry>
-			<listEntry value="1">@Strings.FilledSegments</listEntry>
+			<listEntry value="0">@Strings.ShowAllSegments</listEntry>
+			<listEntry value="1">@Strings.ShowFilledSegments</listEntry>
 			<listEntry value="2">@Strings.Hidden</listEntry>
 		</settingConfig>
 	</setting>
